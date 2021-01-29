@@ -19,7 +19,6 @@ class MultiSelectableActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMultiSelectableBinding
     private val adapter = MultiTypeAdapter()
     private val items = ArrayList<Any>()
-    private lateinit var fab: Button
     private lateinit var selectedSet: TreeSet<Int>//内部元素排序
 
     override fun onCreate(savedInstanceState: Bundle?) {
