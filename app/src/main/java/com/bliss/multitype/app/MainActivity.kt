@@ -3,7 +3,9 @@ package com.bliss.multitype.app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.bliss.multitype.app.databinding.ActivityMainBinding
 import com.bliss.multitype.binder.ImageItemViewBinder
@@ -33,7 +35,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     private fun imageAndTextItemsShow() {
         //注册ItemViewBinder，每一种数据源对应一种viewBinder，都需要进行注册
         adapter.register(ImageItemViewBinder())
-        adapter.register(TextItemViewBinder())
+
+        //MultiTypeAdapter中item点击事件回调处理
+        val itemTextItemBinder = TextItemViewBinder(object : TextItemViewBinder.OnItemClickedListener {
+            override fun onClick(textView: TextView, position: Int, textItem: TextItem) {
+                Log.e("onClick ", "MultiTypeAdapter中item点击事件回调处理 - 点击了- ${textView.text} position = $position 当前item数据：${textItem.toString()}" )
+            }
+
+        })
+        adapter.register(itemTextItemBinder)
         adapter.register(RichViewDelegate())
         binding.recycleView.adapter = adapter
         //多类型数据源
